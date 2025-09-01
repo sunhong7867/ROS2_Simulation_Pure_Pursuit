@@ -77,5 +77,10 @@ def generate_launch_description():
             executable='sim_simulation_sender_node',
             output='screen'
         ),
-                     
+
+        Node(
+            package='debug_pkg',
+            executable='log_node',
+            output='screen'
+        ),              
     ])

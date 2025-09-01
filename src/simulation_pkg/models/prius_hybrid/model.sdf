@@ -1690,8 +1690,8 @@
       <sensor name='lidar' type='ray'>
         <!-- 라이다 시각화 빔 조절 -->
         <pose>0 0 0.0 0 0 0</pose> 
-        <always_on>1</always_on>
-        <visualize>1</visualize>
+        <always_on>false</always_on>
+        <visualize>false</visualize>
         <update_rate>5</update_rate>
         <ray>
           <scan>

@@ -54,16 +54,16 @@ class MotionPlanningNode(Node):
         # 부드러운 조향용 게인과 필터 계수
         self.steering_gain    = 0.08    # target_slope → steering 값으로 변환하는 비례 상수
         self.max_steering     = 7       # 조향의 절대 최대값
-        self.smoothing_alpha  = 0.55   # 로우패스 필터 계수 (0~1, 1에 가까울수록 관성 커짐)
+        self.smoothing_alpha  = 0.5    # 로우패스 필터 계수 (0~1, 1에 가까울수록 관성 커짐)
         
         # 속도 제어 튜닝 계수 추가
-        self.speed_adj_gain = 4 # 조향값에 따라 속도를 줄이는 계수
+        self.speed_adj_gain = 10 # 조향값에 따라 속도를 줄이는 계수
 
         # 교차로/횡단보도 통과 후 저속 주행
         self.intersection_drive_active = False
         self.intersection_drive_start_time = None
-        self.INTERSECTION_DRIVE_DURATION = 0 # 저속 주행 시간 (초)
-        self.INTERSECTION_DRIVE_SPEED = 100 # 교차로 통과 후 속도 (raw)
+        self.INTERSECTION_DRIVE_DURATION = 6.0 # 저속 주행 시간 (초)
+        self.INTERSECTION_DRIVE_SPEED = 160 # 교차로 통과 후 속도 (raw)
 
         # 서브스크라이버 설정
         self.detection_sub = self.create_subscription(DetectionArray, self.sub_detection_topic, self.detection_callback, self.qos_profile)
@@ -172,7 +172,7 @@ class MotionPlanningNode(Node):
 
 
     def _apply_control_logic(self):
-        base_speed = 100
+        base_speed = 200
         if self.path_data is None:
             raw_steer = 0
         else:
@@ -186,7 +186,7 @@ class MotionPlanningNode(Node):
                     target_slope = DMFL.calculate_slope_between_points(
                         self.path_data[28], self.path_data[-1]
                     )
-                    base_speed = 100
+                    base_speed = 160
             # 2) 프로포셔널 제어: 기울기에 비례한 조향값
             raw_steer = int(self.steering_gain * target_slope)
             # 3) 최대값으로 클램프
