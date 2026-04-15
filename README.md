@@ -22,25 +22,8 @@ rosdep install -i --from-path src --rosdistro jazzy -y
 
 ## 패키지 빌드
 ```
-cd ~/ROS2_Simulation
 source /opt/ros/jazzy/setup.bash
-
-colcon build --packages-select interfaces_pkg
-source install/local_setup.bash
-
-colcon build --symlink-install --packages-select camera_perception_pkg
-source install/local_setup.bash
-
-colcon build --symlink-install --packages-select decision_making_pkg
-source install/local_setup.bash
-
-colcon build --symlink-install --packages-select debug_pkg
-source install/local_setup.bash
-
-colcon build --symlink-install --packages-select simulation_pkg
-source install/local_setup.bash
-
-colcon build --symlink-install --packages-select lidar_perception_pkg
+colcon build --symlink-install
 source install/local_setup.bash
 ```
 
@@ -49,12 +32,10 @@ source install/local_setup.bash
 
 ### 장애물 없는 환경
 ```
-cd ~/ROS2_Simulation
 sudo killall -9 gazebo gzserver gzclient; ros2 launch simulation_pkg driving_sim.launch.py
 ```
 
 ### 장애물 및 신호등 있는 환경
 ```
-cd ~/ROS2_Simulation
 sudo killall -9 gazebo gzserver gzclient; ros2 launch simulation_pkg mission_sim.launch.py
 ```
