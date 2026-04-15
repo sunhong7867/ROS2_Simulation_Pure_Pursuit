@@ -23,7 +23,7 @@ rosdep install -i --from-path src --rosdistro jazzy -y
 ## 패키지 빌드
 ```
 cd ~/ROS2_Simulation
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 colcon build --packages-select interfaces_pkg --allow-overriding interfaces_pkg 
 source install/local_setup.bash
 
