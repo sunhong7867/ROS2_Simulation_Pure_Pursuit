@@ -24,22 +24,23 @@ rosdep install -i --from-path src --rosdistro jazzy -y
 ```
 cd ~/ROS2_Simulation
 source /opt/ros/jazzy/setup.bash
-colcon build --packages-select interfaces_pkg --allow-overriding interfaces_pkg 
+
+colcon build --packages-select interfaces_pkg
 source install/local_setup.bash
 
-colcon build --symlink-install --packages-select camera_perception_pkg --allow-overriding camera_perception_pkg 
+colcon build --symlink-install --packages-select camera_perception_pkg
 source install/local_setup.bash
 
-colcon build --symlink-install --packages-select decision_making_pkg --allow-overriding decision_making_pkg 
+colcon build --symlink-install --packages-select decision_making_pkg
 source install/local_setup.bash
 
-colcon build --symlink-install --packages-select debug_pkg --allow-overriding debug_pkg 
+colcon build --symlink-install --packages-select debug_pkg
 source install/local_setup.bash
 
-colcon build --symlink-install --packages-select simulation_pkg --allow-overriding simulation_pkg
+colcon build --symlink-install --packages-select simulation_pkg
 source install/local_setup.bash
 
-colcon build --symlink-install --packages-select lidar_perception_pkg --allow-overriding lidar_perception_pkg
+colcon build --symlink-install --packages-select lidar_perception_pkg
 source install/local_setup.bash
 ```
 
