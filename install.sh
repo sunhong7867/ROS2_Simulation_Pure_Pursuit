@@ -1,30 +1,30 @@
-
 #!/bin/bash
 
 sudo apt-get update
 sudo apt-get install -y python3-pip 
 
+# Ubuntu 24.04(Python 3.12)부터는 시스템 보호를 위해 전역 pip 설치 시 --break-system-packages 옵션이 필수입니다.
+pip install opencv-python pyserial --break-system-packages 
+pip install ultralytics==8.2.69 --break-system-packages
+# 주의: Python 3.12에서는 구버전 setuptools(58.2.0) 설치가 실패할 수 있습니다. 오류 시 버전 지정 없이 설치하세요.
+pip install setuptools==58.2.0 --break-system-packages 
+pip install pynput --break-system-packages
 
-pip install opencv-python pyserial 
-pip install ultralytics==8.2.69
-pip install setuptools==58.2.0 
-pip install pynput
+# ROS 2 Jazzy부터는 기존 Gazebo Classic이 완전히 단종되고 새로운 Gazebo(Harmonic)로 대체되었습니다.
+# 관련 패키지들을 ros-jazzy-ros-gz 생태계에 맞게 수정했습니다.
+sudo apt install ros-jazzy-xacro
+sudo apt install ros-jazzy-ros-gz
+sudo apt install ros-jazzy-ros-gz-sim
+sudo apt install ros-jazzy-ros-gz-bridge
+sudo apt install ros-jazzy-ros-gz-interfaces
 
-sudo apt install gazebo
-sudo apt install ros-humble-gazebo-ros-pkgs
-sudo apt install ros-humble-xacro
-sudo apt install ros-humble-gazebo-ros
-sudo apt-get install ros-humble-gazebo-msgs
-sudo apt-get install ros-humble-gazebo-plugins
-
-
-pip install transformers
+pip install transformers --break-system-packages
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-pip install huggingface_hub
+pip install huggingface_hub --break-system-packages
 
 
-
-# cp -r ~/ros2_autonomous_vehicle_simulation/src/simulation_pkg/models/* /home/$(whoami)/.gazebo/models
+# (참고) 새로운 Gazebo는 모델 디렉토리로 ~/.gz/models 를 사용하지만, 
+# 기존 패키지 소스가 ~/.gazebo 에 의존할 수 있으므로 기존 폴더 생성 및 복사 로직은 유지했습니다.
 GAZEBO_DIR="/home/$(whoami)/.gazebo"
 if [ -d "$GAZEBO_DIR" ]; then
     echo "" # .gazebo 폴더가 존재하는지 확인
@@ -88,7 +88,8 @@ add_alias "alias STOP='ros2 service call /go std_srvs/srv/SetBool \"{data: false
 if ! grep -q "qqq()" "$BASHRC_FILE"; then
     cat << 'EOF' >> "$BASHRC_FILE"
 qqq() {
-    PIDS=$(ps aux | grep '[g]zserver' | awk '{print $2}')
+    # 기존 Gazebo Classic(gzserver)과 새로운 Gazebo(ruby/gz sim) 프로세스 모두 종료
+    PIDS=$(ps aux | grep -E '[g]zserver|[r]uby.*gz' | awk '{print $2}')
 
     for pid in $PIDS; do
         kill -9 $pid
@@ -110,4 +111,3 @@ add_alias "alias rma='rm -rf'"
 
 echo "변경된 .bashrc를 적용합니다."
 source "$HOME/.bashrc"
-
