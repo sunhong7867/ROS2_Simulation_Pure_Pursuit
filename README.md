@@ -14,7 +14,8 @@ source ~/.bashrc
 export AMENT_PREFIX_PATH=''
 export CMAKE_PREFIX_PATH=''
 source /opt/ros/jazzy/setup.bash
-rosdep install -i --from-path src --rosdistro jazzy -y
+
+PYTHONNOUSERSITE=1 rosdep install -i --from-path src --rosdistro jazzy -y
 ```
 
 
