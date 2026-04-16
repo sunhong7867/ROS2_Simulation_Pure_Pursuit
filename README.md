@@ -3,7 +3,6 @@
 
 ## 초기 환경설정
 ```
-git clone https://github.com/SKKUAutoLab/ros2_autonomous_vehicle_simulation
 cd ~/ROS2_Simulation
 sh install.sh
 source ~/.bashrc
@@ -12,7 +11,6 @@ source ~/.bashrc
 
 ## 초기 환경설정
 ```
-cd ~/ROS2_Simulation
 export AMENT_PREFIX_PATH=''
 export CMAKE_PREFIX_PATH=''
 source /opt/ros/jazzy/setup.bash
@@ -32,10 +30,10 @@ source install/local_setup.bash
 
 ### 장애물 없는 환경
 ```
-sudo killall -9 gazebo gzserver gzclient; ros2 launch simulation_pkg driving_sim.launch.py
+qqq; ros2 launch simulation_pkg driving_sim.launch.py
 ```
 
 ### 장애물 및 신호등 있는 환경
 ```
-sudo killall -9 gazebo gzserver gzclient; ros2 launch simulation_pkg mission_sim.launch.py
+qqq; ros2 launch simulation_pkg mission_sim.launch.py
 ```
